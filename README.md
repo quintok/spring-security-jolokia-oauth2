@@ -7,7 +7,7 @@ OAuth2 is provided by AzureAD
 
 This example does not use spring-boot
 
-Setup
+Setup Manually
 ==
 1. Register a new app registration in AzureAD
    1. Accounts in this organization directory only
@@ -33,7 +33,17 @@ Setup
          1. Select the user that is you, in my case `Nick Cronin`
          2. Role should be `Jolokia Users` and you should be unable to assign it
             1. If it is not `Jolokia Users` you may have tried this too fast, wait for the sync
-6. In Azure CLI:
+
+Terraform Setup
+===
+Assuming you have Terraform installed and setup,
+1. Go into infra folder and run `terraform apply`
+2. Terraform will output the `get-access-token` request for you.
+
+
+Run
+===
+1. In Azure CLI:
    1. `az login` again to update your permissions
    2. `az account get-access-token --resource $APPLICATION_ID_URI`
    3. Take the bearer token (`accessToken` in the payload) and run a request like this:
@@ -41,3 +51,4 @@ Setup
       GET http://localhost:8080/demo_war/jolokia/list
       Authorization: Bearer $BEARER_TOKEN
       ```
+      n.b.: 'demo_war' was just the name of the war I was using for testing.
